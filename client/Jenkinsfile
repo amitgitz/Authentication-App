@@ -1,0 +1,49 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Build Frontend') {
+            steps {
+                dir('frontend') {
+                    // Install frontend dependencies
+                    sh 'npm install'
+
+                    // Build the frontend app
+                    sh 'npm run build'
+                }
+            }
+        }
+
+        stage('Build Backend') {
+            steps {
+                dir('backend') {
+                    // Install backend dependencies
+                    sh 'npm install'
+
+                    // Add any backend-specific build steps, if required
+                    // For example, if you need to transpile TypeScript, you can run:
+                    // sh 'npm run build'
+                }
+            }
+        }
+
+        stage('Run Frontend') {
+            steps {
+                dir('frontend') {
+                    // Run the frontend app
+                    sh 'npm start'
+                }
+            }
+        }
+
+        stage('Run Backend') {
+            steps {
+                dir('backend') {
+                    // Run the backend app
+                    sh 'npm start'
+                }
+            }
+        }
+    }
+}
+
